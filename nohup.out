@@ -1,0 +1,240 @@
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[input] done (time 15.3)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.889 fill 0.222 unique, total, repeated 7.1M, 430.3%, 42.0%
+[data-stats] 1 chunks, used 84.79%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.1)
+[sorting] start
+[sorting] done (time 0.3)
+[output] start
+[output] done (time 8.1)
+[time] time spent in input: 63% compute:  2% output: 33%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=692678601
+nt_out=692678601
+passed_unique=7438627
+passed_total=32009607
+num_records=32009607
+[memusage] 603979776 bytes
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[input] done (time 13.8)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.901 fill 0.197 unique, total, repeated 6.3M, 416.1%, 40.3%
+[data-stats] 1 chunks, used 75.09%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.0)
+[sorting] start
+[sorting] done (time 0.3)
+[output] start
+[output] done (time 7.5)
+[time] time spent in input: 63% compute:  2% output: 34%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=596203183
+nt_out=596203183
+passed_unique=6616705
+passed_total=27531957
+num_records=27531957
+[memusage] 603979776 bytes
+[input] done (time 16.8)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.884 fill 0.233 unique, total, repeated 7.5M, 448.0%, 38.3%
+[data-stats] 1 chunks, used 88.49%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[input] done (time 17.0)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[singletons] done (time 0.1)
+[sorting] start
+[hash-stats] H00 lucky 0.875 fill 0.251 unique, total, repeated 8.0M, 406.1%, 36.7%
+[data-stats] 1 chunks, used 94.19%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.1)
+[sorting] start
+[sorting] done (time 0.3)
+[output] start
+[sorting] done (time 0.3)
+[output] start
+[input] done (time 18.3)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.869 fill 0.263 unique, total, repeated 8.4M, 423.7%, 39.2%
+[data-stats] 1 chunks, used 99.41%
+[array from hash] done (time 0.2)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.1)
+[sorting] start
+[sorting] done (time 0.4)
+[output] start
+[output] done (time 8.4)
+[time] time spent in input: 65% compute:  2% output: 32%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=757919178
+nt_out=757919178
+passed_unique=7819958
+passed_total=35031697
+num_records=35031697
+[memusage] 603979776 bytes
+[output] done (time 9.3)
+[time] time spent in input: 63% compute:  1% output: 34%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=739389441
+nt_out=739389441
+passed_unique=8407466
+passed_total=34146109
+num_records=34146109
+[memusage] 603979776 bytes
+[output] done (time 9.7)
+[time] time spent in input: 64% compute:  2% output: 33%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=807692322
+nt_out=807692322
+passed_unique=8819147
+passed_total=37364509
+num_records=37364509
+[memusage] 603979776 bytes
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[tally] [tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[tally] data log size 26 (0.06G) hash log size 25 (0.50G) unit size 16
+[input] done (time 12.3)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.901 fill 0.197 unique, total, repeated 6.3M, 416.1%, 40.3%
+[data-stats] 1 chunks, used 75.09%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.0)
+[sorting] start
+[sorting] done (time 0.3)
+[output] start
+[input] done (time 14.4)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.889 fill 0.222 unique, total, repeated 7.1M, 430.3%, 42.0%
+[data-stats] 1 chunks, used 84.79%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.1)
+[sorting] start
+[sorting] done (time 0.4)
+[output] start
+[input] done (time 15.1)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.875 fill 0.251 unique, total, repeated 8.0M, 406.1%, 36.7%
+[data-stats] 1 chunks, used 94.19%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[input] done (time 15.3)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[singletons] done (time 0.1)
+[sorting] start
+[hash-stats] H00 lucky 0.884 fill 0.233 unique, total, repeated 7.5M, 448.0%, 38.3%
+[data-stats] 1 chunks, used 88.49%
+[array from hash] done (time 0.1)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.1)
+[sorting] start
+[sorting] done (time 0.3)
+[output] start
+[sorting] done (time 0.3)
+[output] start
+[output] done (time 4.5)
+[time] time spent in input: 71% compute:  2% output: 25%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=596203183
+nt_out=596203183
+passed_unique=6616705
+passed_total=27531957
+num_records=27531957
+[memusage] 603979776 bytes
+[input] done (time 18.1)
+[memory] DNA compression factor 3.2
+[array from hash] start
+[hash-stats] H00 lucky 0.869 fill 0.263 unique, total, repeated 8.4M, 423.7%, 39.2%
+[data-stats] 1 chunks, used 99.41%
+[array from hash] done (time 0.2)
+[singletons] start - moving unique reads to the end
+[singletons] done (time 0.1)
+[sorting] start
+[sorting] done (time 0.4)
+[output] start
+[output] done (time 5.1)
+[time] time spent in input: 71% compute:  2% output: 25%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=692678601
+nt_out=692678601
+passed_unique=7438627
+passed_total=32009607
+num_records=32009607
+[memusage] 603979776 bytes
+[output] done (time 5.2)
+[time] time spent in input: 72% compute:  2% output: 24%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=757919178
+nt_out=757919178
+passed_unique=7819958
+passed_total=35031697
+num_records=35031697
+[memusage] 603979776 bytes
+[output] done (time 5.7)
+[time] time spent in input: 70% compute:  2% output: 26%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=739389441
+nt_out=739389441
+passed_unique=8407466
+passed_total=34146109
+num_records=34146109
+[memusage] 603979776 bytes
+[output] done (time 5.9)
+[time] time spent in input: 73% compute:  2% output: 24%
+discarded_unmatched=0
+discarded_alien=0
+discarded_length=0
+discarded_trint=0
+nt_in=807692322
+nt_out=807692322
+passed_unique=8819147
+passed_total=37364509
+num_records=37364509
+[memusage] 603979776 bytes
