@@ -21,8 +21,6 @@ import math
 import pandas as pd
 from Bio.Seq import Seq
 
-
-
 def parseCommandLineArguments():
     """
     Parses the arguments provided through command line.
@@ -358,7 +356,6 @@ def generatePositivePHASLoci(options,whole_mapped_data,phase,cycle):
         fhw.write(chromosome+"\t"+str(window_start)+"\t"+str(window_end)+"\n")
     fhw.close()
     
-
 def readFastaFile(filename):
     """
     Reads in a fasta file and returns a dictionary
@@ -422,7 +419,6 @@ def readDataForPhasingScoreComputation(options,phase):
             readseq[chromosome][coordinate][strand]=seq
     return score,readcount,readseq
         
-
 def generatePhasingScore(options,phase,cycle):
     """
     Generates phasing scores for the phased loci
