@@ -1,9 +1,0 @@
-nohup: ignoring input
-Traceback (most recent call last):
-  File "computeCoveragePAREReads.py", line 106, in <module>
-    main()
-  File "computeCoveragePAREReads.py", line 103, in main
-    computeCoverageTranscriptome()
-  File "computeCoveragePAREReads.py", line 60, in computeCoverageTranscriptome
-    fhr=open(filename,"r")
-FileNotFoundError: [Errno 2] No such file or directory: '/work/LAS/rpwise-lab/sagnik/small_rna/data/PARE_raw_data/Hv_pool2_adapter_trimmed_unique_transcriptome_bowtie1.sorted.sam'
