@@ -64,30 +64,30 @@ def analyzeCommandLineArguments(options):
     cmd="touch "+options.output_directory_provided+"/Log.out"
     os.system(cmd)
     if options.bowtie_index == None:
-        os.system("echo \"No bowtie index provided. Proceeding to building index\" >> "+options.output_directory+"/Log.out")
+        os.system("echo \"No bowtie index provided. Proceeding to building index\" >> "+options.output_directory_provided+"/Log.out")
         if os.path.exists(options.genome)==False:
-            os.system("echo \"The genome file you provided does not exist\" >> "+options.output_directory+"/Log.out")
+            os.system("echo \"The genome file you provided does not exist\" >> "+options.output_directory_provided+"/Log.out")
             flag=1
     if options.input_library!=None and os.path.exists(options.input_library)==False:
-        os.system("echo \"The input file "+options.input_library+" does not exist\" >> "+options.output_directory+"/Log.out")
+        os.system("echo \"The input file "+options.input_library+" does not exist\" >> "+options.output_directory_provided+"/Log.out")
         flag=1
     elif options.consolidated_library!=None and os.path.exists(options.consolidated_library)==False:
-        os.system("echo \"The input file "+options.consolidated_library+" does not exist\" >> "+options.output_directory+"/Log.out")
+        os.system("echo \"The input file "+options.consolidated_library+" does not exist\" >> "+options.output_directory_provided+"/Log.out")
         flag=1
         
     if flag==1:
-        print("The program had to terminate prematurely....Please check "+options.output_directory+"/Log.out file for more details")
+        print("The program had to terminate prematurely....Please check "+options.output_directory_provided+"/Log.out file for more details")
         sys.exit()
     for ele in options.number_of_cycles:
         if ele not in ["9","10","11","12","13"]:
-            os.system("echo \"Incorrect number of cycles have been entered. Valid choices are 9, 10, 11, 12 and 13 \" >> "+options.output_directory+"/Log.out")
+            os.system("echo \"Incorrect number of cycles have been entered. Valid choices are 9, 10, 11, 12 and 13 \" >> "+options.output_directory_provided+"/Log.out")
             flag=1
     
     if options.consolidated_filename==None:
         if options.input_filename.split(".")[-1]=="fq" or options.input_filename.split(".")[-1]=="fastq":
-            cmd="sed -n '1~4s/^@/>/p;2~4p' "+options.input_filename+" > "+options.output_directory+"/"+options.input_filename.split("/")[-1].split(".")[0]+".fa"
+            cmd="sed -n '1~4s/^@/>/p;2~4p' "+options.input_filename+" > "+options.output_directory_provided+"/"+options.input_filename.split("/")[-1].split(".")[0]+".fa"
             os.system(cmd)
-            options.input_filename=options.output_directory+"/"+options.input_filename.split("/")[-1].split(".")[0]+".fa"
+            options.input_filename=options.output_directory_provided+"/"+options.input_filename.split("/")[-1].split(".")[0]+".fa"
     
     if options.consolidated_library==None:
         options.input_path="/".join(options.input_library.split("/")[:-1])
