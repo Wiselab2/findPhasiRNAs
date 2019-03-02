@@ -3,7 +3,7 @@
 # Version: 1.0
 # 
 # This program will analyze locations of phasiRNAs. Please
-# launch python analyzePhasiRNAs.py --help for more details of each possible functionality
+# launch python findPhasiRNAs.py --help for more details of each possible functionality
 # of the software. 
 #######################################################################################################
 
@@ -26,7 +26,7 @@ def parseCommandLineArguments():
     Parses the arguments provided through command line.
     Launch python analyzePhasiRNAs.py --help for more details
     """
-    parser = argparse.ArgumentParser(prog="analyzePhasiRNAs.py",description="This pipeline can be used to find locations where phasing occurs. Please make sure that the following softwares are available in your path: samtools, bowtie, bedtools2. We recommend that you trim adapters from your libraries before submitting them to this pipeline.")
+    parser = argparse.ArgumentParser(prog="findPhasiRNAs.py",description="findPhasiRNAs can be used to find locations where phasing occurs. Please make sure that the following softwares are available in your path: samtools, bowtie, bedtools2. We recommend that you trim adapters from your libraries before submitting them to this pipeline.")
     optional_arg = parser.add_argument_group("Optional Arguments")
     required_arg = parser.add_argument_group("Required Arguments")
     input_mutex = parser.add_mutually_exclusive_group(required=True)
