@@ -36,3 +36,5 @@ Phased and non-phased locations: The vertical arrow indicates the start site for
 ‘n’: Total number of possible locations where phasing can occur. Hence, in our case, a window can have maximum ‘m’ such positions.
 
 ‘k’: Number of phased locations in the window which is covered by at least one sRNA.
+
+$$$pvalue = \sum_{X=k}^{m}\frac{}{}$
