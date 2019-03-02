@@ -7,18 +7,10 @@
 # of the software. 
 #######################################################################################################
 
-"""
-module purge
-module load bowtie
-module load R
-module load python/3.6.0
-"""
-
 import argparse
 import sys
 import os
 import math
-import pandas as pd
 from Bio.Seq import Seq
 
 def parseCommandLineArguments():

@@ -6,6 +6,47 @@ Plant genomes encode abundant but diverse populations of small non-coding RNAs, 
 
 This pipeline takes a statistical approach to obtain genomic loci where there is a strong signal of phasing. It computes p-values and also phasing scores. Phasing structure for each potential phasic loci is output as an image file to the output directory.   
 
+## How to run findPhasiRNAs
+
+findPhasiRNAs is written mainly in Python. There is one R code to generate plots. Binaries of all other dependencies are included in the release. Please note that you must have python3 to run the code. Version 2 of python is not supported.
+
+### Installation
+
+**Install Python [Please skip of you already have python installed]**
+
+Several distrbutions of Linux have python3 preinstalled. Please check have installed, open a command prompt and run
+
+```
+python3 --version
+```
+
+For Ubuntu 16.10 or Newer
+
+```
+sudo apt-get update
+sudo apt-get install python3.6
+sudo pip install biopython
+```
+
+If you’re using another version of Ubuntu (e.g. the latest LTS release), we recommend using the deadsnakes PPA to install Python 3.6:
+
+```
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get install python3.6
+sudo pip install biopython
+```
+
+Fedora or RHEL distributions
+
+```
+sudo dnf install python3
+sudo pip install biopython
+```
+
+
+
 ## Formula Used
 
 ### Algorithm for computation of p-value
