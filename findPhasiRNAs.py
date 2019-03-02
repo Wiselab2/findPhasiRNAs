@@ -525,6 +525,8 @@ def main():
             os.system(cmd)
             if options.clean_up!=0:
                 cleanUpTemporaryFiles(options)
+            """
+            """
     
 if __name__ == "__main__":
     main()
