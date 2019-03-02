@@ -31,12 +31,13 @@ def parseCommandLineArguments():
     genome_mutex.add_argument("--bowtie_index","-bindex",help="Provide the bowtie index. This argument is optional. If no index is provided then the software will generate one.")
     
     required_arg.add_argument("--output_directory_provided","-out",help="Specify an output directory to which all the generated files will be housed. This includes the log file which can be later checked. Please make sure that there are sufficient permissions to create the output directory. The program will throw an error if creation of the output directory fails. If the directory already exists then its contents will be overwritten without warning. This directory will contain the summary file containing the details of the execution",required=True)
-    required_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",default=21,required=True)
-    required_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10, 11, 12 and 13",default=11,required=True)
-    required_arg.add_argument("--pvalue_cutoff","-p",help="Enter the p-value cut off",default=0.05,required=True)
+    optional_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",default=21,required=True)
+    optional_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10, 11, 12 and 13",default=11,required=True)
+    optional_arg.add_argument("--pvalue_cutoff","-p",help="Enter the p-value cut off",default=0.05,required=True)
     optional_arg.add_argument("--clean_up","-c",help="Set this to 1 if you wish to clean up all the intermediate files. The program will keep all temporary files by default.",default=0)
     optional_arg.add_argument("--CPU","-n",help="Provide the number of CPUs to be used. Default is 1.",default=1)
     optional_arg.add_argument("--map_limit","-mapl",help="Specify the mapping limit. Only reads which are mapped at most -mapl times will be considered. The default is 1. The maximum number of alignments allowed for a single read is 10. ",default=1)
+    optional_arg.add_argument("--force","-f",help="Overwrite contents of output directory if it exists.",default=0)
        
     # Supressed arguments
     parser.add_argument("--input_filename","-ifname",help=argparse.SUPPRESS)
@@ -55,6 +56,10 @@ def analyzeCommandLineArguments(options):
     if os.path.exists(options.output_directory_provided)==False:
         cmd="mkdir "+options.output_directory_provided
         os.system(cmd)
+    else:
+        if options.force==0:
+            os.system("echo \"Output directory already exists. Please re-run the program with -f 1 to enforce rewrite of the directory \" >> "+options.output_directory+"/Log.out")
+            flag=1
         
     cmd="touch "+options.output_directory_provided+"/Log.out"
     os.system(cmd)
@@ -139,6 +144,7 @@ def mapSmallRNAReadsToGenomeUsingBowtie1(options):
     # Generate the bowtie index if one is not provided
     if options.bowtie_index==None:
         cmd="lib/bowtie/bowtie-build -f "
+        cmd+=" --threads "+options.CPU
         cmd+=options.genome+" "
         cmd+=options.output_directory+"/bowtie1_index"
         os.system(cmd)

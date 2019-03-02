@@ -1,6 +1,16 @@
 # findPhasiRNAs
 
-## Introduction
+## AUTHOR/SUPPORT
+
+Sagnik Banerjee, !(sagnik@iastate.edu) !(https://github.com/sagnikbanerjee15/findPhasiRNAs/issues)
+
+## HARDWARE/SOFTWARE REQUIREMENTS
+
+x86-64 compatible processors
+64 bit Linux or Mac OS X
+
+
+## INTRODUCTION
 
 Plant genomes encode abundant but diverse populations of small non-coding RNAs, which can be broadly divided into microRNAs (miRNAs) and endogenous small interfering RNAs (siRNAs). Endogenous siRNAs can be further grouped into several sub-classes such as heterochromatic small interfering RNAs (siRNAs), natural antisense siRNAs (nat-siRNAs) and trans-acting siRNAs (ta-siRNAs). The role of miRNAs as post-transcriptional regulators is well known. Among siRNAs, tasiRNAs and natsiRNAs are known to act as guide molecules for post-transcriptional gene regulation, and heterochromatic siRNAs in transcriptional gene silencing, but the role of phasiRNAs in gene regulation is still unclear. PhasiRNAs are produced from both protein-coding and noncoding genes. In many eudicots, three large gene families generate the majority of phasiRNAs, including those encoding nucleotide binding leucine-rich repeat proteins (NB-LRR genes), pentatricopeptide repeat proteins (PPR genes), and MYB transcription factors (MYB genes). 
 
@@ -83,16 +93,99 @@ module load r-gridextra
  
 ### Executing the software
 
+The entire software has been written in python and has been put in a single file `findPhasiRNAs.py`. There is another file `plot.R` which plots the phasing score graphs.
+
+
 Please trim adapters from your sequences. You could either use Trimmomatic !(http://www.usadellab.org/cms/?page=trimmomatic]) or cutadapt !(https://cutadapt.readthedocs.io/en/stable/guide.html).
-  
+
+The release file  
 The program will require 3 mandatory inputs:
 - Either the genome sequence or bowtie index of the genome sequence. 
 - Input fasta file or consolidated counts file.
 - Output directory name. The program will create the output directory if it does not exist
 
- 
+Bowtie Index generation from the genome takes a long time. It is recommended to build the index before phasiRNA analysis if you have multiple samples. Constructing the indices once will considerably save time by eliminating redundant executions.  
 
-## Formula Used
+```
+python findPhasiRNAs.py --help
+usage: findPhasiRNAs.py [-h]
+                        (--input_library INPUT_LIBRARY | --consolidated_library CONSOLIDATED_LIBRARY)
+                        (--genome GENOME | --bowtie_index BOWTIE_INDEX)
+                        --output_directory_provided OUTPUT_DIRECTORY_PROVIDED
+                        --small_rna_size SMALL_RNA_SIZE [SMALL_RNA_SIZE ...]
+                        --number_of_cycles NUMBER_OF_CYCLES
+                        [NUMBER_OF_CYCLES ...] --pvalue_cutoff PVALUE_CUTOFF
+                        [--clean_up CLEAN_UP] [--CPU CPU]
+                        [--map_limit MAP_LIMIT] [--force FORCE]
+
+findPhasiRNAs can be used to find locations where phasing occurs. We recommend
+that you trim adapters from your libraries before submitting them to this
+pipeline. The pipeline will NOT perform any adapter trimming.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input_library INPUT_LIBRARY, -i INPUT_LIBRARY
+                        Specify the name of the file which has the small-RNA
+                        reads. This option is mutually exclusive with
+                        --consolidated_library
+  --consolidated_library CONSOLIDATED_LIBRARY, -clib CONSOLIDATED_LIBRARY
+                        Specify the name of the file which has the reads
+                        consolidated by the number of occurances. This must be
+                        in fasta format. The fasta header of each read must be
+                        followed by the number of times they occur in the
+                        original dataset separated by an underscore. For
+                        example, if the read occurs 90182 times, then the
+                        fasta header should read <read_name>_90182. You can
+                        provide any <read_name> as you wish. Please note that
+                        the number of occurances of the reads will be used to
+                        calculate phasing score. This option is mutually
+                        exclusive with --input_library.
+  --genome GENOME, -g GENOME
+                        Specify the name of the genome fasta file of the
+                        organism. Please note that the program will not be
+                        able to handle multiple fasta files.
+  --bowtie_index BOWTIE_INDEX, -bindex BOWTIE_INDEX
+                        Provide the bowtie index. This argument is optional.
+                        If no index is provided then the software will
+                        generate one.
+
+Optional Arguments:
+  --small_rna_size SMALL_RNA_SIZE [SMALL_RNA_SIZE ...], -srnasize SMALL_RNA_SIZE [SMALL_RNA_SIZE ...]
+                        Specify the size of the small RNA that you wish to
+                        analyze. You can enter more than one possible size.
+  --number_of_cycles NUMBER_OF_CYCLES [NUMBER_OF_CYCLES ...], -numcycles NUMBER_OF_CYCLES [NUMBER_OF_CYCLES ...]
+                        Specify the number of cycles you wish to analyze with.
+                        You can enter multiple number of number of cycles. The
+                        accepted values are 9, 10, 11, 12 and 13
+  --pvalue_cutoff PVALUE_CUTOFF, -p PVALUE_CUTOFF
+                        Enter the p-value cut off
+  --clean_up CLEAN_UP, -c CLEAN_UP
+                        Set this to 1 if you wish to clean up all the
+                        intermediate files. The program will keep all
+                        temporary files by default.
+  --CPU CPU, -n CPU     Provide the number of CPUs to be used. Default is 1.
+  --map_limit MAP_LIMIT, -mapl MAP_LIMIT
+                        Specify the mapping limit. Only reads which are mapped
+                        at most -mapl times will be considered. The default is
+                        1. The maximum number of alignments allowed for a
+                        single read is 10.
+  --force FORCE, -f FORCE
+                        Overwrite contents of output directory if it exists.
+
+Required Arguments:
+  --output_directory_provided OUTPUT_DIRECTORY_PROVIDED, -out OUTPUT_DIRECTORY_PROVIDED
+                        Specify an output directory to which all the generated
+                        files will be housed. This includes the log file which
+                        can be later checked. Please make sure that there are
+                        sufficient permissions to create the output directory.
+                        The program will throw an error if creation of the
+                        output directory fails. If the directory already
+                        exists then its contents will be overwritten without
+                        warning. This directory will contain the summary file
+                        containing the details of the execution
+```
+
+## BACKGROUND FORMULA
 
 ### Algorithm for computation of p-value
 
@@ -136,3 +229,10 @@ $$PhaseScore_{loc} = ln(1+10 \times \frac{\sum_{i=1}^{m} P_i}{1+\sum_{i=1}^{m}U_
 ‘k’: Number of phased locations in the window which is covered by at least one sRNA. Or this calculation we will consider k>=3.
 Pi: Number of phased reads at the ith phase from the position loc
 Ui: total number of reads for all small RNAs with start coordinates out of the ith phase
+
+## LIMITATIONS
+
+
+## FUNDING
+
+
