@@ -83,6 +83,7 @@ install.packages("gridExtra")
 In case you are using a **SPACK** based cluster, you will need to load each module individually. Please note that the default versions could differ from what is provided below.
 
 ```
+module purge
 module load python
 module load py-biopython/1.70-py3-wos466g
 module load r

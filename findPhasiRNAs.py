@@ -31,8 +31,8 @@ def parseCommandLineArguments():
     genome_mutex.add_argument("--bowtie_index","-bindex",help="Provide the bowtie index. This argument is optional. If no index is provided then the software will generate one.")
     
     required_arg.add_argument("--output_directory_provided","-out",help="Specify an output directory to which all the generated files will be housed. This includes the log file which can be later checked. Please make sure that there are sufficient permissions to create the output directory. The program will throw an error if creation of the output directory fails. If the directory already exists then its contents will be overwritten without warning. This directory will contain the summary file containing the details of the execution",required=True)
-    optional_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",default=21,required=True)
-    optional_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10, 11, 12 and 13",default=11,required=True)
+    optional_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",default=21)
+    optional_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10, 11, 12 and 13",default=11)
     optional_arg.add_argument("--pvalue_cutoff","-p",help="Enter the p-value cut off",default=0.05,required=True)
     optional_arg.add_argument("--clean_up","-c",help="Set this to 1 if you wish to clean up all the intermediate files. The program will keep all temporary files by default.",default=0)
     optional_arg.add_argument("--CPU","-n",help="Provide the number of CPUs to be used. Default is 1.",default=1)
