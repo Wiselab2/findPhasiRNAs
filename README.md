@@ -28,7 +28,7 @@ sudo apt-get install python3.6
 sudo pip install biopython
 ```
 
-If you’re using another version of Ubuntu (e.g. the latest LTS release), we recommend using the deadsnakes PPA to install Python 3.6:
+If you’re using another version of Ubuntu (e.g. the latest LTS release)
 
 ```
 sudo apt-get install software-properties-common
@@ -45,7 +45,52 @@ sudo dnf install python3
 sudo pip install biopython
 ```
 
+**Install R [Please skip if you already have R installed]**
 
+For Ubuntu
+
+```
+sudo apt-get install r-base
+```
+
+Fedora or RHEL distributions
+
+```
+sudo yum install r
+```
+
+Install other dependencies using the following commands
+
+```
+install.packages("plyr")
+install.packages("ggplot2")
+install.packages("reshape2")
+install.packages("grid")
+install.packages("gridExtra")
+```
+
+In case you are using a **SPACK** based cluster, you will need to load each module individually. Please note that the default versions could differ from what is provided below.
+
+```
+module load python
+module load py-biopython/1.70-py3-wos466g
+module load r
+module load r-plyr
+module load r-ggplot2
+module load r-reshape2
+module load r-gridextra
+```
+ 
+### Executing the software
+
+Please trim adapters from your sequences. You could either use Trimmomatic !(http://www.usadellab.org/cms/?page=trimmomatic]) or cutadapt !(https://cutadapt.readthedocs.io/en/stable/guide.html).
+  
+The program will require 3 mandatory inputs:
+- Either the genome sequence or bowtie index of the genome sequence. 
+- Input fasta file or consolidated counts file.
+- Output directory name. The program will create the output directory if it does not exist
+
+ 
 
 ## Formula Used
 

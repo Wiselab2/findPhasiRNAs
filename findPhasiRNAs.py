@@ -18,24 +18,27 @@ def parseCommandLineArguments():
     Parses the arguments provided through command line.
     Launch python analyzePhasiRNAs.py --help for more details
     """
-    parser = argparse.ArgumentParser(prog="findPhasiRNAs.py",description="findPhasiRNAs can be used to find locations where phasing occurs. Please make sure that the following softwares are available in your path: samtools, bowtie, bedtools2. We recommend that you trim adapters from your libraries before submitting them to this pipeline.")
+    parser = argparse.ArgumentParser(prog="findPhasiRNAs.py",description="findPhasiRNAs can be used to find locations where phasing occurs. We recommend that you trim adapters from your libraries before submitting them to this pipeline. The pipeline will NOT perform any adapter trimming.")
     optional_arg = parser.add_argument_group("Optional Arguments")
     required_arg = parser.add_argument_group("Required Arguments")
     input_mutex = parser.add_mutually_exclusive_group(required=True)
+    genome_mutex = parser.add_mutually_exclusive_group(required = True)
     
     input_mutex.add_argument("--input_library","-i",help="Specify the name of the file which has the small-RNA reads. This option is mutually exclusive with --consolidated_library")
-    required_arg.add_argument("--output_directory_provided","-out",help="Specify an output directory to which all the generated files will be housed. This includes the log file which can be later checked. Please make sure that there are sufficient permissions to create the output directory. The program will throw an error if creation of the output directory fails. If the directory already exists then its contents will be overwritten without warning. This directory will contain the summary file containing the details of the execution",required=True)
-    required_arg.add_argument("--genome","-g",help="Specify the name of the genome fasta file of the organism. Please note that the program will not be able to handle multiple fasta files. ",required=True)
-    required_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",required=True)
-    required_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10 and 11",required=True)
-    required_arg.add_argument("--pvalue_cutoff","-p",help="Enter the p-value cut off",default=0.05,required=True)
-    
     input_mutex.add_argument("--consolidated_library","-clib",help="Specify the name of the file which has the reads consolidated by the number of occurances. This must be in fasta format. The fasta header of each read must be followed by the number of times they occur in the original dataset separated by an underscore. For example, if the read occurs 90182 times, then the fasta header should read <read_name>_90182. You can provide any <read_name> as you wish. Please note that the number of occurances of the reads will be used to calculate phasing score.  This option is mutually exclusive with --input_library.")
+    
+    genome_mutex.add_argument("--genome","-g",help="Specify the name of the genome fasta file of the organism. Please note that the program will not be able to handle multiple fasta files. ")
+    genome_mutex.add_argument("--bowtie_index","-bindex",help="Provide the bowtie index. This argument is optional. If no index is provided then the software will generate one.")
+    
+    required_arg.add_argument("--output_directory_provided","-out",help="Specify an output directory to which all the generated files will be housed. This includes the log file which can be later checked. Please make sure that there are sufficient permissions to create the output directory. The program will throw an error if creation of the output directory fails. If the directory already exists then its contents will be overwritten without warning. This directory will contain the summary file containing the details of the execution",required=True)
+    required_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",default=21,required=True)
+    required_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10, 11, 12 and 13",default=11,required=True)
+    required_arg.add_argument("--pvalue_cutoff","-p",help="Enter the p-value cut off",default=0.05,required=True)
     optional_arg.add_argument("--clean_up","-c",help="Set this to 1 if you wish to clean up all the intermediate files. The program will keep all temporary files by default.",default=0)
     optional_arg.add_argument("--CPU","-n",help="Provide the number of CPUs to be used. Default is 1.",default=1)
-    optional_arg.add_argument("--bowtie_index","-bindex",help="Provide the bowtie index. This argument is optional. If no index is provided then the software will generate one.")
     optional_arg.add_argument("--map_limit","-mapl",help="Specify the mapping limit. Only reads which are mapped at most -mapl times will be considered. The default is 1. The maximum number of alignments allowed for a single read is 10. ",default=1)
        
+    # Supressed arguments
     parser.add_argument("--input_filename","-ifname",help=argparse.SUPPRESS)
     parser.add_argument("--input_path","-ipath",help=argparse.SUPPRESS)
     parser.add_argument("--consolidated_filename","-cfname",help=argparse.SUPPRESS)
@@ -55,9 +58,11 @@ def analyzeCommandLineArguments(options):
         
     cmd="touch "+options.output_directory_provided+"/Log.out"
     os.system(cmd)
-    """if os.path.exists(options.genome)==False:
-        os.system("echo \"The genome file you provided does not exist\" >> "+options.output_directory+"/Log.out")
-        flag=1"""
+    if options.bowtie_index == None:
+        os.system("echo \"No bowtie index provided. Proceeding to building index\" >> "+options.output_directory+"/Log.out")
+        if os.path.exists(options.genome)==False:
+            os.system("echo \"The genome file you provided does not exist\" >> "+options.output_directory+"/Log.out")
+            flag=1
     if options.input_library!=None and os.path.exists(options.input_library)==False:
         os.system("echo \"The input file "+options.input_library+" does not exist\" >> "+options.output_directory+"/Log.out")
         flag=1
@@ -69,8 +74,8 @@ def analyzeCommandLineArguments(options):
         print("The program had to terminate prematurely....Please check "+options.output_directory+"/Log.out file for more details")
         sys.exit()
     for ele in options.number_of_cycles:
-        if ele not in ["9","10","11"]:
-            os.system("echo \"Incorrect number of cycles have been entered. Valid choices are 9, 10 and 11\" >> "+options.output_directory+"/Log.out")
+        if ele not in ["9","10","11","12","13"]:
+            os.system("echo \"Incorrect number of cycles have been entered. Valid choices are 9, 10, 11, 12 and 13 \" >> "+options.output_directory+"/Log.out")
             flag=1
     
     if options.consolidated_library==None:
@@ -133,7 +138,7 @@ def mapSmallRNAReadsToGenomeUsingBowtie1(options):
     """
     # Generate the bowtie index if one is not provided
     if options.bowtie_index==None:
-        cmd="bowtie-build -f "
+        cmd="lib/bowtie/bowtie-build -f "
         cmd+=options.genome+" "
         cmd+=options.output_directory+"/bowtie1_index"
         os.system(cmd)
@@ -146,7 +151,7 @@ def mapSmallRNAReadsToGenomeUsingBowtie1(options):
     else:
         large_index=1
     
-    cmd="nohup bowtie "
+    cmd="lib/bowtie/bowtie "
     if large_index==1:
         cmd+=" --large-index "
     cmd+=" -f -m "
@@ -517,8 +522,6 @@ def main():
             os.system(cmd)
             if options.clean_up!=0:
                 cleanUpTemporaryFiles(options)
-            """
-            """
     
 if __name__ == "__main__":
     main()
