@@ -1,5 +1,7 @@
 # findPhasiRNAs
 
+Detect genomic phased loci from small RNA data 
+
 ## AUTHOR/SUPPORT
 
 Sagnik Banerjee, !(sagnik@iastate.edu) !(https://github.com/sagnikbanerjee15/findPhasiRNAs/issues)
@@ -8,7 +10,6 @@ Sagnik Banerjee, !(sagnik@iastate.edu) !(https://github.com/sagnikbanerjee15/fin
 
 x86-64 compatible processors
 64 bit Linux or Mac OS X
-
 
 ## INTRODUCTION
 
@@ -90,18 +91,26 @@ module load r-ggplot2
 module load r-reshape2
 module load r-gridextra
 ```
+
+### Installing findPhasiRNAs
+
+Apart from python and R no other softwares are required.
+
+```
+git clone https://github.com/sagnikbanerjee15/findPhasiRNAs.git
+cd findPhasiRNAs
+```
  
-### Executing the software
+### Parameter description
 
 The entire software has been written in python and has been put in a single file `findPhasiRNAs.py`. There is another file `plot.R` which plots the phasing score graphs.
-
 
 Please trim adapters from your sequences. You could either use Trimmomatic !(http://www.usadellab.org/cms/?page=trimmomatic]) or cutadapt !(https://cutadapt.readthedocs.io/en/stable/guide.html).
 
 The release file  
 The program will require 3 mandatory inputs:
 - Either the genome sequence or bowtie index of the genome sequence. 
-- Input fasta file or consolidated counts file.
+- Input fasta file or consolidated counts file. You can provide the fastq file if you do not have the fasta file. The program will perform the required conversions.
 - Output directory name. The program will create the output directory if it does not exist
 
 Bowtie Index generation from the genome takes a long time. It is recommended to build the index before phasiRNA analysis if you have multiple samples. Constructing the indices once will considerably save time by eliminating redundant executions.  
@@ -183,6 +192,24 @@ Required Arguments:
                         exists then its contents will be overwritten without
                         warning. This directory will contain the summary file
                         containing the details of the execution
+```
+
+### Example Runs
+
+Follow the following steps to run analysis with an example dataset
+
+```
+# Download the Arabidopsis Thaliana genome
+wget ftp://ftp.ensemblgenomes.org/pub/plants/release-42/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz
+gunzip Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz
+
+# Download the fastq data from NCBI
+wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR510/SRR5100580/SRR5100580.sra
+fastq-dump SRR5100580.sra
+
+# Run with default arguments [Run1]
+python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run1  
+
 ```
 
 ## BACKGROUND FORMULA

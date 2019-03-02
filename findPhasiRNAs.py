@@ -83,6 +83,12 @@ def analyzeCommandLineArguments(options):
             os.system("echo \"Incorrect number of cycles have been entered. Valid choices are 9, 10, 11, 12 and 13 \" >> "+options.output_directory+"/Log.out")
             flag=1
     
+    if options.consolidated_filename==None:
+        if options.input_filename.split(".")[-1]=="fq" or options.input_filename.split(".")[-1]=="fastq":
+            cmd="sed -n '1~4s/^@/>/p;2~4p' "+options.input_filename+" > "+options.output_directory+"/"+options.input_filename.split("/")[-1].split(".")[0]+".fa"
+            os.system(cmd)
+            options.input_filename=options.output_directory+"/"+options.input_filename.split("/")[-1].split(".")[0]+".fa"
+    
     if options.consolidated_library==None:
         options.input_path="/".join(options.input_library.split("/")[:-1])
         options.input_filename=options.input_library.split("/")[-1].split(".")[0]
