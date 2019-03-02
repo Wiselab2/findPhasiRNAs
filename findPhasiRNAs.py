@@ -33,7 +33,7 @@ def parseCommandLineArguments():
     
     input_mutex.add_argument("--input_library","-i",help="Specify the name of the file which has the small-RNA reads. This option is mutually exclusive with --consolidated_library")
     required_arg.add_argument("--output_directory_provided","-out",help="Specify an output directory to which all the generated files will be housed. This includes the log file which can be later checked. Please make sure that there are sufficient permissions to create the output directory. The program will throw an error if creation of the output directory fails. If the directory already exists then its contents will be overwritten without warning. This directory will contain the summary file containing the details of the execution",required=True)
-    #required_arg.add_argument("--genome","-g",help="Specify the name of the genome fasta file of the organism. Please note that the program will not be able to handle multiple fasta files. ",required=True)
+    required_arg.add_argument("--genome","-g",help="Specify the name of the genome fasta file of the organism. Please note that the program will not be able to handle multiple fasta files. ",required=True)
     required_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",required=True)
     required_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10 and 11",required=True)
     required_arg.add_argument("--pvalue_cutoff","-p",help="Enter the p-value cut off",default=0.05,required=True)
