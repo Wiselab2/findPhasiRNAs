@@ -37,4 +37,4 @@ Phased and non-phased locations: The vertical arrow indicates the start site for
 
 ‘k’: Number of phased locations in the window which is covered by at least one sRNA.
 
-$$pvalue = \sum_{X=k}^{m}\frac{}{}$$
+$$pvalue = \sum_{X=k}^{m}\frac{1}{2}$$
