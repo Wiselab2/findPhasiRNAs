@@ -44,9 +44,9 @@ graph_list<-list()
 i<-1
 
 
-#print("This are the phasing score files")
-#print(phasing_score_files)
-phasing_score_files<-phasing_score_files[2:length(phasing_score_files)]
+print("This are the phasing score files")
+print(phasing_score_files)
+phasing_score_files<-phasing_score_files[1:length(phasing_score_files)]
 
 for(file_num in seq(1:length(phasing_score_files)))
 {

@@ -106,27 +106,23 @@ cd findPhasiRNAs
 
 The entire software has been written in python and has been put in a single file `findPhasiRNAs.py`. There is another file `plot.R` which plots the phasing score graphs.
 
-Please trim adapters from your sequences. You could either use Trimmomatic !(http://www.usadellab.org/cms/?page=trimmomatic]) or cutadapt !(https://cutadapt.readthedocs.io/en/stable/guide.html).
-
 The release file  
 The program will require 3 mandatory inputs:
 - Either the genome sequence or bowtie index of the genome sequence. 
-- Input fasta file or consolidated counts file. You can provide the fastq file if you do not have the fasta file. The program will perform the required conversions.
+- Input fasta file. You can provide the fastq file if you do not have the fasta file. The program will perform the required conversions.
 - Output directory name. The program will create the output directory if it does not exist
 
 Bowtie Index generation from the genome takes a long time. It is recommended to build the index before phasiRNA analysis if you have multiple samples. Constructing the indices once will considerably save time by eliminating redundant executions.  
 
 ```
-python findPhasiRNAs.py --help
-usage: findPhasiRNAs.py [-h]
-                        (--input_library INPUT_LIBRARY | --consolidated_library CONSOLIDATED_LIBRARY)
+python findPhasiRNAs.py -h
+usage: findPhasiRNAs.py [-h] [--input_library INPUT_LIBRARY]
                         (--genome GENOME | --bowtie_index BOWTIE_INDEX)
-                        --output_directory_provided OUTPUT_DIRECTORY_PROVIDED
-                        --small_rna_size SMALL_RNA_SIZE [SMALL_RNA_SIZE ...]
-                        --number_of_cycles NUMBER_OF_CYCLES
-                        [NUMBER_OF_CYCLES ...] --pvalue_cutoff PVALUE_CUTOFF
-                        [--clean_up CLEAN_UP] [--CPU CPU]
-                        [--map_limit MAP_LIMIT] [--force FORCE]
+                        --output_directory OUTPUT_DIRECTORY
+                        [--small_rna_size SMALL_RNA_SIZE [SMALL_RNA_SIZE ...]]
+                        [--number_of_cycles NUMBER_OF_CYCLES [NUMBER_OF_CYCLES ...]]
+                        [--pvalue_cutoff PVALUE_CUTOFF] [--clean_up CLEAN_UP]
+                        [--CPU CPU] [--map_limit MAP_LIMIT] [--force FORCE]
 
 findPhasiRNAs can be used to find locations where phasing occurs. We recommend
 that you trim adapters from your libraries before submitting them to this
@@ -134,22 +130,6 @@ pipeline. The pipeline will NOT perform any adapter trimming.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --input_library INPUT_LIBRARY, -i INPUT_LIBRARY
-                        Specify the name of the file which has the small-RNA
-                        reads. This option is mutually exclusive with
-                        --consolidated_library
-  --consolidated_library CONSOLIDATED_LIBRARY, -clib CONSOLIDATED_LIBRARY
-                        Specify the name of the file which has the reads
-                        consolidated by the number of occurances. This must be
-                        in fasta format. The fasta header of each read must be
-                        followed by the number of times they occur in the
-                        original dataset separated by an underscore. For
-                        example, if the read occurs 90182 times, then the
-                        fasta header should read <read_name>_90182. You can
-                        provide any <read_name> as you wish. Please note that
-                        the number of occurances of the reads will be used to
-                        calculate phasing score. This option is mutually
-                        exclusive with --input_library.
   --genome GENOME, -g GENOME
                         Specify the name of the genome fasta file of the
                         organism. Please note that the program will not be
@@ -183,7 +163,11 @@ Optional Arguments:
                         Overwrite contents of output directory if it exists.
 
 Required Arguments:
-  --output_directory_provided OUTPUT_DIRECTORY_PROVIDED, -out OUTPUT_DIRECTORY_PROVIDED
+  --input_library INPUT_LIBRARY, -i INPUT_LIBRARY
+                        Specify the name of the file which has the small-RNA
+                        reads. This option is mutually exclusive with
+                        --consolidated_library
+  --output_directory OUTPUT_DIRECTORY, -out OUTPUT_DIRECTORY
                         Specify an output directory to which all the generated
                         files will be housed. This includes the log file which
                         can be later checked. Please make sure that there are
@@ -197,7 +181,7 @@ Required Arguments:
 
 ### Example Runs
 
-Follow the following steps to run analysis with an example dataset
+Follow the steps below to run analysis with an example dataset
 
 ```
 # Download the Arabidopsis Thaliana genome
@@ -209,8 +193,10 @@ wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR510/SRR
 fastq-dump SRR5100580.sra
 
 # Run with default arguments [Run1]
-python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run1  
+python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run1  > run1.output 2> Run1.error 
 
+# Run with more CPUs, more phasiRNA sizes, increased mapping tolerance [Run2]
+python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run2 -f 1 -n 30 -srnasize 20 21 22 23 -numcycles 9 10 11 12 -mapl 20 > Run2.output 2> Run2.error # -mapl controls using reads which have been mapped at most 20 times
 ```
 
 ## BACKGROUND FORMULA
