@@ -249,6 +249,10 @@ $$PhaseScore_{loc} = ln(1+10 \times \frac{\sum_{i=1}^{m} P_i}{1+\sum_{i=1}^{m}U_
 Pi: Number of phased reads at the ith phase from the position loc
 Ui: total number of reads for all small RNAs with start coordinates out of the ith phase
 
+## Updates in future releases
 
+ - Take bowtie alignment file as input
+ - Multicore parallelization for pvalue and phasign score calculation
+  
 
 
