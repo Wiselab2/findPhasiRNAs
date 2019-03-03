@@ -229,9 +229,8 @@ Positive Windows: Windows that abide by the 3 following rules are called positiv
 
 Phased and non-phased locations: The vertical arrow indicates the start site for the small RNA used to determine the phased and non-phased positions. 21 phased sites relative to the start site are indicated as black vertical bars. Four hundred forty non-phased sites relative to the start site are indicated as grey. In this paper [4], they have considered the two strands separately which is why there are more phased sites. In our case there will be ‘m’ phased sites in a window.
 
-‘n’: Total number of possible locations where phasing can occur. Hence, in our case, a window can have maximum ‘m’ such positions.
-
-‘k’: Number of phased locations in the window which is covered by at least one sRNA.
+- ‘n’: Total number of possible locations where phasing can occur. Hence, in our case, a window can have maximum ‘m’ such positions.
+- ‘k’: Number of phased locations in the window which is covered by at least one sRNA.
 
 $$pvalue = \sum_{x=k}^{m}\frac{\binom{20m}{n-x}\binom{m}{x}}{\binom{21m}{n}}$$
 
@@ -243,9 +242,9 @@ Phasing score will be computed for each location (loc) of the genome using the f
 
 $$PhaseScore_{loc} = ln(1+10 \times \frac{\sum_{i=1}^{m} P_i}{1+\sum_{i=1}^{m}U_i})^{k-2}$$
 
-‘k’: Number of phased locations in the window which is covered by at least one sRNA. Or this calculation we will consider k>=3.
-Pi: Number of phased reads at the ith phase from the position loc
-Ui: total number of reads for all small RNAs with start coordinates out of the ith phase
+- ‘k’: Number of phased locations in the window which is covered by at least one sRNA. Or this calculation we will consider k>=3.
+- Pi: Number of phased reads at the ith phase from the position loc
+- Ui: total number of reads for all small RNAs with start coordinates out of the ith phase
 
 ## Updates in future releases
 
