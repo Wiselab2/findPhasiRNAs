@@ -147,9 +147,7 @@ usage: findPhasiRNAs.py [-h] [--input_library INPUT_LIBRARY]
                         [--pvalue_cutoff PVALUE_CUTOFF] [--clean_up CLEAN_UP]
                         [--CPU CPU] [--map_limit MAP_LIMIT] [--force FORCE]
 
-findPhasiRNAs can be used to find locations where phasing occurs. We recommend
-that you trim adapters from your libraries before submitting them to this
-pipeline. The pipeline will NOT perform any adapter trimming.
+findPhasiRNAs can be used to find locations where phasing occurs.
 
 optional arguments:
   -h, --help            show this help message and exit

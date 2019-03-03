@@ -18,18 +18,14 @@ def parseCommandLineArguments():
     Parses the arguments provided through command line.
     Launch python analyzePhasiRNAs.py --help for more details
     """
-    parser = argparse.ArgumentParser(prog="findPhasiRNAs.py",description="findPhasiRNAs can be used to find locations where phasing occurs. ")
+    parser = argparse.ArgumentParser(prog="findPhasiRNAs.py",description="findPhasiRNAs can be used to find genomic locations where phasing occurs. ")
     optional_arg = parser.add_argument_group("Optional Arguments")
     required_arg = parser.add_argument_group("Required Arguments")
-    #input_mutex = parser.add_mutually_exclusive_group(required=True)
     genome_mutex = parser.add_mutually_exclusive_group(required = True)
     
     required_arg.add_argument("--input_library","-i",help="Specify the name of the file which has the small-RNA reads. This option is mutually exclusive with --consolidated_library")
-    #input_mutex.add_argument("--consolidated_library","-clib",help="Specify the name of the file which has the reads consolidated by the number of occurances. This must be in fasta format. The fasta header of each read must be followed by the number of times they occur in the original dataset separated by an underscore. For example, if the read occurs 90182 times, then the fasta header should read <read_name>_90182. You can provide any <read_name> as you wish. Please note that the number of occurances of the reads will be used to calculate phasing score.  This option is mutually exclusive with --input_library.")
-    
     genome_mutex.add_argument("--genome","-g",help="Specify the name of the genome fasta file of the organism. Please note that the program will not be able to handle multiple fasta files. ")
     genome_mutex.add_argument("--bowtie_index","-bindex",help="Provide the bowtie index. This argument is optional. If no index is provided then the software will generate one.")
-    
     required_arg.add_argument("--output_directory","-out",help="Specify an output directory to which all the generated files will be housed. This includes the log file which can be later checked. Please make sure that there are sufficient permissions to create the output directory. The program will throw an error if creation of the output directory fails. If the directory already exists then its contents will be overwritten without warning. This directory will contain the summary file containing the details of the execution",required=True)
     optional_arg.add_argument("--small_rna_size","-srnasize",nargs="+",help="Specify the size of the small RNA that you wish to analyze. You can enter more than one possible size.",default=["21"])
     optional_arg.add_argument("--number_of_cycles","-numcycles",nargs="+",help="Specify the number of cycles you wish to analyze with. You can enter multiple number of number of cycles. The accepted values are 9, 10, 11, 12 and 13",default=["9"])
