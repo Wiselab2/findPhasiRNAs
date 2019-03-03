@@ -123,7 +123,7 @@ python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.t
 
 ### Understanding outputs
 
-Under the output directory separate sub directories will be created for each phase-cycle pair. For Run2 (as outlined in the example above), 16 sub-directories will be created under Run2. Under each sub directory, there will be a pdf file where all the phasing score graphs and abundance graphs will be present.
+Under the output directory separate sub directories will be created for each phase-cycle pair. For Run2 (as outlined in the example above), 16 sub-directories will be created under the directory `Run2`. Under each sub directory, there will be a pdf file where all the phasing score graphs and abundance graphs will be present.
  
 ### Parameter description
 
@@ -249,9 +249,6 @@ $$PhaseScore_{loc} = ln(1+10 \times \frac{\sum_{i=1}^{m} P_i}{1+\sum_{i=1}^{m}U_
 Pi: Number of phased reads at the ith phase from the position loc
 Ui: total number of reads for all small RNAs with start coordinates out of the ith phase
 
-## LIMITATIONS
 
-
-## FUNDING
 
 
