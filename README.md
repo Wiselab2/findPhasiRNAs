@@ -76,7 +76,6 @@ Install other dependencies using the following commands
 install.packages("plyr")
 install.packages("ggplot2")
 install.packages("reshape2")
-install.packages("grid")
 install.packages("gridExtra")
 ```
 
@@ -95,12 +94,36 @@ module load r-gridextra
 
 ### Installing findPhasiRNAs
 
-Apart from python and R no other softwares are required.
+You need only python and R to execute the software.
 
 ```
 git clone https://github.com/sagnikbanerjee15/findPhasiRNAs.git
 cd findPhasiRNAs
 ```
+
+### Example Runs
+
+Follow the steps below to run analysis with an example dataset
+
+```
+# Download the Arabidopsis Thaliana genome
+wget ftp://ftp.ensemblgenomes.org/pub/plants/release-42/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz
+gunzip Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz
+
+# Download the fastq data from NCBI
+wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR510/SRR5100580/SRR5100580.sra
+fastq-dump SRR5100580.sra
+
+# Run with default arguments [Run1]
+python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run1  > run1.output 2> Run1.error 
+
+# Run with more CPUs, more phasiRNA sizes, increased mapping tolerance [Run2]
+python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run2 -f 1 -n 30 -srnasize 20 21 22 23 -numcycles 9 10 11 12 -mapl 20 > Run2.output 2> Run2.error # -mapl controls using reads which have been mapped at most 20 times
+```
+
+### Understanding outputs
+
+Under the output directory separate sub directories will be created for each phase-cycle pair. For Run2 (as outlined in the example above), 16 sub-directories will be created under Run2. Under each sub directory, there will be a pdf file where all the phasing score graphs and abundance graphs will be present.
  
 ### Parameter description
 
@@ -179,25 +202,7 @@ Required Arguments:
                         containing the details of the execution
 ```
 
-### Example Runs
 
-Follow the steps below to run analysis with an example dataset
-
-```
-# Download the Arabidopsis Thaliana genome
-wget ftp://ftp.ensemblgenomes.org/pub/plants/release-42/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz
-gunzip Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz
-
-# Download the fastq data from NCBI
-wget ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR510/SRR5100580/SRR5100580.sra
-fastq-dump SRR5100580.sra
-
-# Run with default arguments [Run1]
-python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run1  > run1.output 2> Run1.error 
-
-# Run with more CPUs, more phasiRNA sizes, increased mapping tolerance [Run2]
-python findPhasiRNAs.py -i SRR5100580.fastq -g Arabidopsis_thaliana.TAIR10.dna.toplevel.fa -out Run2 -f 1 -n 30 -srnasize 20 21 22 23 -numcycles 9 10 11 12 -mapl 20 > Run2.output 2> Run2.error # -mapl controls using reads which have been mapped at most 20 times
-```
 
 ## BACKGROUND FORMULA
 
@@ -222,7 +227,7 @@ The above figure depicts a window which in this case is 231bp long. Addition of 
 Positive Windows: Windows that abide by the 3 following rules are called positive windows:
 •	Contains at least 10 unique reads
 •	More than half of the reads should be ‘L’ nt long
-•	At least three unique reads falling into the phase registers (Not sure how important this point is – may choose to ignore it)
+•	At least three unique reads falling into the phase registers
 
 Phased and non-phased locations: The vertical arrow indicates the start site for the small RNA used to determine the phased and non-phased positions. 21 phased sites relative to the start site are indicated as black vertical bars. Four hundred forty non-phased sites relative to the start site are indicated as grey. In this paper [4], they have considered the two strands separately which is why there are more phased sites. In our case there will be ‘m’ phased sites in a window.
 

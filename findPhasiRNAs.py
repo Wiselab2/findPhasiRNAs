@@ -64,11 +64,10 @@ def analyzeCommandLineArguments(options):
             os.system("echo \"Output directory already exists. Please re-run the program with -f 1 to enforce rewrite of the directory \" >> "+options.output_directory+"/Log.out")
             flag=1
         else:
-            """cmd="rm -rf "+options.output_directory
+            cmd="rm -rf "+options.output_directory
             os.system(cmd)
             cmd="mkdir "+options.output_directory
-            os.system(cmd)"""
-            pass
+            os.system(cmd)
         
     cmd="touch "+options.output_directory+"/Log.out"
     os.system(cmd)
