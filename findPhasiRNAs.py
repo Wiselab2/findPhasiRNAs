@@ -526,8 +526,8 @@ def main():
     options=parseCommandLineArguments()
     options=analyzeCommandLineArguments(options)
     
-    """trimAdapters(options)
-    condolidateReads(options)"""
+    trimAdapters(options)
+    condolidateReads(options)
     mapSmallRNAReadsToGenomeUsingBowtie1(options)
     for phase in options.small_rna_size:
         whole_mapped_data,mapped_data_per_size_per_register=readMappedData(options,phase)

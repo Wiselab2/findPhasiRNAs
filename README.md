@@ -8,8 +8,8 @@ Sagnik Banerjee, !(sagnik@iastate.edu) !(https://github.com/sagnikbanerjee15/fin
 
 ## HARDWARE/SOFTWARE REQUIREMENTS
 
-x86-64 compatible processors
-64 bit Linux or Mac OS X
+ - x86-64 compatible processors
+ - 64 bit Linux or Mac OS X
 
 ## INTRODUCTION
 
